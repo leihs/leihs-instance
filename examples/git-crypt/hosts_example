@@ -1,0 +1,5 @@
+[secrets]
+${LEIHS_HOSTNAME}
+
+[leihs]
+${LEIHS_HOSTNAME}

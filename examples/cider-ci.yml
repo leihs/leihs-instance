@@ -1,0 +1,44 @@
+# working example configuration to deploy a leihs instance using Cider-CI
+
+jobs:
+  deploy_leihs:
+    name: Deploy leihs
+
+    context:
+      task_defaults:
+        max_trials: 1
+        aggregate_state: satisfy-last
+        traits:
+          Ansible 2: yes
+          git-crypt: yes
+          ci-executor.leihs: yes
+
+        environment_variables:
+          LANG: "en_US.UTF-8"
+
+      tasks:
+        deploy:
+          exclusive_global_resources:
+            "leihs.example.com": true
+          environment_variables:
+            HOSTS_FILE: hosts
+
+          scripts:
+            deploy:
+              start_when:
+                submodules are checked out: {script_key: checkout-submodules}
+                git-crypt is unlocked: {script_key: unlock}
+                only when we are on the head of master branch: {script_key: check-head-of-master}
+
+              timeout: 30 minutes
+              body: cd leihs/deploy && ansible-playbook -i "../../${HOSTS_FILE}" play_setup-and-deploy.yml
+
+            unlock:
+              body: git crypt unlock && ls -la . && ls -R group_vars
+
+            check-head-of-master:
+              body: git fetch && test $(git log -n 1 --pretty=%H HEAD -- ) == $(git log -n 1 --pretty=%H origin/master -- )
+
+            checkout-submodules:
+              start_when: {after: {script_key: check-head-of-master}}
+              body: git submodule update --init leihs && cd leihs && git submodule update --init --recursive deploy

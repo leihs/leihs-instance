@@ -1,0 +1,3 @@
+# ansible_ssh_port: 12345
+# ansible_ssh_user: my_ssh_user
+# zencoder_api_key: "my-key"

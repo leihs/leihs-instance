@@ -1,0 +1,12 @@
+---
+ansible_host: ${LEIHS_HOSTNAME}
+ansible_user: root
+
+leihs_send_mails: Yes
+
+
+db_backup_on_deploy: Yes
+db_backup_keep_days: 4
+db_backup_nigthly_enabled: Yes
+# TODO: needed?
+# database_dump_restore_file_path: '{{inventory_dir}}/../legacy/tmp/db_production.pgbin'
