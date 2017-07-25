@@ -1,0 +1,1 @@
+cd leihs/deploy && ansible-playbook -i ../../hosts deploy_play.yml

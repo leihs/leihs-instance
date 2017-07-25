@@ -5,4 +5,4 @@ cd leihs
 git fetch
 git submodule foreach --recursive 'git reset --hard HEAD'
 git reset --hard "origin/${CHANNEL}"
-git submodule update --recursive deploy
+git submodule update --recursive

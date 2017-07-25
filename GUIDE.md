@@ -10,16 +10,20 @@ and the [general **leihs** Documentation](https://github.com/leihs/leihs/wiki)*
 1. ["Fork" this repository on github](https://github.com/leihs/leihs-instance/fork)
   *(only required if you want to receive updates as Pull Requests)*
 
-1. set up inventory on a computer running Linux or macOS (will be the "control machine")
+1. set up inventory on a computer running Linux or macOS (will be the "control machine").  
+   It needs the following software installed: `git`, `ansible`, `Java 8`.
   ```sh
-  which ansible-playbook || echo "install ansible first!"
+  which ansible-playbook || echo 'install ansible first!'
   git clone git@github:yourUserName/leihs-instance my-leihs
   cd my-leihs
-  sh -c 'git submodule update --init leihs && cd leihs && git submodule update --init --recursive deploy'
+  sh -c 'git submodule update --init leihs && cd leihs && git submodule update --init --recursive'
   ```
 
-1. prepare a server running [Debian `jessie`](https://www.debian.org/releases/jessie/),
-  log in as root via SSH and do `apt-get install python`
+1. prepare a server running [Debian `stretch`](https://www.debian.org/releases/stretch/),
+  log in as root via SSH and do
+  ```
+  apt install curl build-essential libssl-dev default-jdk ruby libyaml-dev python2.7 python2.7-dev python-pip git libffi-dev
+  ```
 
 1. inventory configuration
   - prepare inventory files
@@ -32,31 +36,32 @@ and the [general **leihs** Documentation](https://github.com/leihs/leihs/wiki)*
     sh -c "echo \"$(cat examples/host_vars_example.yml)\"" > "host_vars/${LEIHS_HOSTNAME}.yml"
     ```
   - edit global config in file `group_vars/leihs.yml`
-  - edit per-host config in file `host_vars/leihs.example.com.yml`
+  - edit per-host config in file `host_vars/${LEIHS_HOSTNAME}.yml`
 
-1. install with ansible
-  ```sh
-  ansible-playbook -i hosts leihs/deploy/play_setup-and-deploy.yml
-  ```
+1. install with ansible: `./scripts/deploy`
 
+<!--
 1. setup initial configuration & admin account (choose a better password and save it):
   ```sh
   ansible-playbook -i hosts leihs/deploy/play_first-time-setup.yml -e "admin_password=supersecret"
   ```
+-->
 
-1. Log in as the admin user and go to the admin interface.
-   Change the password to a stronger one, customize the name of the instance and other settings.
+1. Leihs is now installed on the given hostname.
+   Open it in your browser and use the form to create the first admin user.  
    Add Users and Groups and start using **leihs**! 🎉
 
+<!--
 ## backup
 
 A `master_secret` was created during the installation and put in a text file
 in your repository.
-By default it is git-ignored, so it won't be accidentially pushed to a public
+By default it is git-ignored, so it won't be accidentally pushed to a public
 host (like GitHub).
 You should either back up your local repository with the secret to a secure place;
 or use [`git-crypt`](https://www.agwa.name/projects/git-crypt/) to add the
 secret to the repository in encrypted form (*recommended*).
+-->
 
 ## upgrade
 
