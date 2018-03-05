@@ -10,7 +10,7 @@ and the [general **leihs** Documentation](https://github.com/leihs/leihs/wiki)*
 1. ["Fork" this repository on github](https://github.com/leihs/leihs-instance/fork)
   *(only required if you want to receive updates as Pull Requests)*
 
-1. set up inventory on a computer running Linux or macOS (will be the "control machine").  
+2. set up inventory on a computer running Linux or macOS (will be the "control machine").  
    It needs the following software installed: `git`, `ansible`, `Java 8`.
   ```sh
   which ansible-playbook || echo 'install ansible first!'
@@ -19,13 +19,13 @@ and the [general **leihs** Documentation](https://github.com/leihs/leihs/wiki)*
   sh -c 'git submodule update --init leihs && cd leihs && git submodule update --init --recursive'
   ```
 
-1. prepare a server running [Debian `stretch`](https://www.debian.org/releases/stretch/),
+3. prepare a server running [Debian `stretch`](https://www.debian.org/releases/stretch/),
   log in as root via SSH and do
   ```
   apt install curl build-essential libssl-dev default-jdk ruby libyaml-dev python2.7 python2.7-dev python-pip git libffi-dev
   ```
 
-1. inventory configuration
+4. inventory configuration
   - prepare inventory files
     ```
     # set hostname
@@ -34,11 +34,14 @@ and the [general **leihs** Documentation](https://github.com/leihs/leihs/wiki)*
     sh -c "echo \"$(cat examples/hosts_example)\"" > hosts
     # create host_vars
     sh -c "echo \"$(cat examples/host_vars_example.yml)\"" > "host_vars/${LEIHS_HOSTNAME}.yml"
+    # create settings.yml file
+    sh -c "echo \"$(cat examples/settings.yml)\"" > "settings/${LEIHS_HOSTNAME}.yml"
     ```
   - edit global config in file `group_vars/leihs.yml`
   - edit per-host config in file `host_vars/${LEIHS_HOSTNAME}.yml`
+  - edit per-host leihs settings in file `settings/${LEIHS_HOSTNAME}.yml`
 
-1. install with ansible: `./scripts/deploy`
+5. install with ansible: `./scripts/deploy`
 
 <!--
 1. setup initial configuration & admin account (choose a better password and save it):
@@ -47,7 +50,7 @@ and the [general **leihs** Documentation](https://github.com/leihs/leihs/wiki)*
   ```
 -->
 
-1. Leihs is now installed on the given hostname.
+6. Leihs is now installed on the given hostname.
    Open it in your browser and use the form to create the first admin user.  
    Add Users and Groups and start using **leihs**! 🎉
 
@@ -69,7 +72,7 @@ secret to the repository in encrypted form (*recommended*).
   - either by accepting a Pull Request (when enabled)
   - or manually: `./scripts/update_leihs_latest stable`
 
-1. run the setup playbook again: `ansible-playbook -i hosts leihs/deploy/play_setup-and-deploy.yml`
+2. run the setup playbook again: `ansible-playbook -i hosts leihs/deploy/play_setup-and-deploy.yml`
 
 ## automatic deployments
 
@@ -86,9 +89,9 @@ The only exception is `README.md`, we won't touch it because you'll likely want 
   git crypt add-gpg-user ${CI_GPG_KEY_ID}
   ```
 
-1. add SSH public key of CI executor to `authorized_keys` of target server
+2. add SSH public key of CI executor to `authorized_keys` of target server
 
-1. set up your CI to `git crypt unlock` und run the deploy script.
+3. set up your CI to `git crypt unlock` und run the deploy script.
   See `examples/cider-ci.yml` for a working [Cider-CI](https://cider-ci.info) configuration.
 
 ## git-crypt
