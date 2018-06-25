@@ -11,7 +11,7 @@ and the [general **leihs** Documentation](https://github.com/leihs/leihs/wiki)*
   *(only required if you want to receive updates as Pull Requests)*
 
 2. set up inventory on a computer running Linux or macOS (will be the "control machine").  
-   It needs the following software installed: `git`, `ansible`, `Java 8`.
+   It needs the following software installed: `git`, `ansible`, `Java 8`, `Ruby 2.3`.
   ```sh
   which ansible-playbook || echo 'install ansible first!'
   git clone git@github:yourUserName/leihs-instance my-leihs
