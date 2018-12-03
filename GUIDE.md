@@ -14,7 +14,7 @@ and the [general **leihs** Documentation](https://github.com/leihs/leihs/wiki)*
    It needs the following software installed: `git`, `ansible`, `Java 8`, `Ruby 2.3`.
   ```sh
   which ansible-playbook || echo 'install ansible first!'
-  git clone git@github:yourUserName/leihs-instance my-leihs
+  git clone git@github.com:yourUserName/leihs-instance my-leihs
   cd my-leihs
   sh -c 'git submodule update --init leihs && cd leihs && git submodule update --init --recursive'
   ```
