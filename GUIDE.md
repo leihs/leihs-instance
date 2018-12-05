@@ -72,7 +72,7 @@ secret to the repository in encrypted form (*recommended*).
   - either by accepting a Pull Request (when enabled)
   - or manually: `./scripts/update_leihs_latest stable`
 
-2. run the setup playbook again: `ansible-playbook -i hosts leihs/deploy/play_setup-and-deploy.yml`
+2. run the deploy playbook again: `./scripts/deploy`
 
 ## automatic deployments
 
