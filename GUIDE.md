@@ -128,8 +128,8 @@ This can be done easily using `certbot` by [LetsEncrypt](https://letsencrypt.org
 
 1. Install `certbot`: `sudo apt-get install python-certbot-apache -t jessie-backports`
 2. Get cert: `certbot certonly --apache -d leihs.example.com`
-3. Configure apache: `certbot run -n --apache --redirect --apache-vhost-root /etc/apache2/leihs -d leihs.example.com`
-  - even more secure (SSL Labs `A+` instead of `A`): `certbot run -n --apache --redirect --hsts --uir --strict-permissions --apache-vhost-root /etc/apache2/leihs -d leihs.example.com`
+3. Configure apache: `certbot run -n --apache --redirect -d leihs.example.com`
+  - even more secure (SSL Labs `A+` instead of `A`): `certbot run -n --apache --redirect --hsts --uir --strict-permissions -d leihs.example.com`
 
 If a certificate set up this way is found on the server, the deploy process will automatically use `certbot` for configuration with recommended settings.
 You only have to re-run `certbot` yourself after each deploy if you prefer other settings.
