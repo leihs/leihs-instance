@@ -1,1 +1,6 @@
-cd leihs/deploy && ansible-playbook -i ../../hosts deploy_play.yml
+#!/bin/sh -exu
+
+git submodule update --recursive --init --force --quiet
+cd leihs/deploy
+
+bin/ansible-playbook -i ../../hosts deploy_play.yml

@@ -6,3 +6,7 @@ git fetch
 git submodule foreach --recursive 'git reset --hard HEAD'
 git reset --hard "origin/${CHANNEL}"
 git submodule update --recursive --init --force
+
+cd -
+git add leihs
+git commit -m 'update leihs version' --edit
