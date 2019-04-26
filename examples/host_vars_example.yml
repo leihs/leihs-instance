@@ -1,13 +1,17 @@
 ---
+leihs_external_hostname: ${LEIHS_HOSTNAME}
+
 ansible_host: ${LEIHS_HOSTNAME}
-ansible_user: root
+ansible_user: ${LEIHS_HOST_USER}\
+$(test ${LEIHS_HOST_USER} != "root" && { echo ""; echo "ansible_become: yes"; echo "ansible_become_method: sudo" ;} || echo "")
 
 leihs_send_mails: Yes
 
 db_backup_keep_days: 4
 db_backup_nigthly_enabled: Yes
 db_backup_on_deploy: No # don't set this to true for first deploy!
-# TODO: needed?
+
+# when restoring a DB backup, point this to the backup file:
 # database_dump_restore_file_path: '{{inventory_dir}}/../legacy/tmp/db_production.pgbin'
 
 settings_file_path: '{{inventory_dir}}/settings/${LEIHS_HOSTNAME}.yml'

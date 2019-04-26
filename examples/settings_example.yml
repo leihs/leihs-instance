@@ -1,0 +1,15 @@
+external_base_url: ${LEIHS_HOSTNAME}
+
+time_zone: Bern
+local_currency_string: CHF
+
+mail_delivery_method: smtp
+smtp_address: localhost
+smtp_port: 25
+smtp_domain: ${LEIHS_HOSTNAME}
+smtp_username:
+smtp_password:
+smtp_enable_starttls_auto: f
+smtp_openssl_verify_mode: 0
+
+ldap_config:

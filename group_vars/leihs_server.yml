@@ -1,0 +1,10 @@
+---
+
+# recommended setup for hosting with letsencrypt and without a reverse proxy
+leihs_virtual_hosts:
+  - { hostname: "localhost", ip: "localhost", logfile_infix: "localhost", force_redirect_to_https: no }
+  - hostname: '{{leihs_external_hostname}}'
+    ip: '*'
+    force_redirect_to_https: yes
+    ssl_certificate_file: '/etc/letsencrypt/live/{{leihs_external_hostname}}/fullchain.pem'
+    ssl_certificate_key_file: '/etc/letsencrypt/live/{{leihs_external_hostname}}/privkey.pem'
