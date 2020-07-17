@@ -1,0 +1,7 @@
+#!/bin/sh -exu
+
+./scripts/-from-docker \
+  ansible-playbook \
+  -i /leihs-instance/hosts \
+  -e 'use_s3_build_cache=yes' \
+  "$@"

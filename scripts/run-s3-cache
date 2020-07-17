@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# run S3 server for developing on or testing the build cache
+
+NAME="leihs-local-build-cache"
+STORE="$(pwd)/tmp/build-cache"
+
+mkdir -p "$STORE"
+
+docker run --rm \
+    --name "$NAME" \
+    -v "${STORE}:/data" \
+    -p "9000:9000" \
+    -e "MINIO_ACCESS_KEY=${NAME}" \
+    -e "MINIO_SECRET_KEY=${NAME}" \
+    --user "$(id -u):$(id -g)" \
+    minio/minio \
+    server /data
