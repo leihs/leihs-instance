@@ -1,0 +1,12 @@
+#!/bin/sh -exu
+
+TAG=$1
+
+git fetch --recurse-submodules
+cd leihs
+git checkout $TAG
+git submodule update --init --recursive
+cd ..
+git add .
+git commit -m "leihs: ${TAG}"
+git push origin HEAD:master
