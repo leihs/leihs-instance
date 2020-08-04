@@ -123,3 +123,35 @@ The only exception is `README.md`, we won't touch it because you'll likely want 
 
 3. set up your CI to `git crypt unlock` und run the deploy script.
    See `examples/cider-ci.yml` for a working [Cider-CI](https://cider-ci.info) configuration.
+
+## build cache
+
+To save time compiling a S3 bucket can be used as a build artefact cache.
+
+For the scripts in this repository, **a public cache is enabled by default**,
+which should contain everything needed for the stable versions of leihs.
+
+Flags:
+
+- `-e 'use_s3_build_cache=yes'` to use the cache
+- `-e 'force_rebuild=yes'` to always build fresh (and upload to the cache if its enabled)
+
+S3 configuration should be given via environment variables.
+Credentials (access id/secret key) are optional, if not given cache will only be read from.
+
+```bash
+export S3_CACHE_ENDPOINT="https://s3.example.com"
+export S3_CACHE_BUCKET="my-leihs-build-cache"
+export S3_ACCESS_KEY_ID="id"
+export S3_SECRET_ACCESS_KEY="secret"
+```
+
+For testing or private caching, the S3 cache can also be run on the *control machine* (see script for details).
+
+```bash
+./scripts/run-s3-cache &
+export S3_CACHE_ENDPOINT="http://localhost:9000"
+export S3_CACHE_BUCKET="leihs-local-build-cache"
+export S3_ACCESS_KEY_ID="leihs-local-build-cache"
+export S3_SECRET_ACCESS_KEY="leihs-local-build-cache"
+```

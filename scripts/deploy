@@ -5,5 +5,6 @@ cd leihs/deploy
 
 bin/ansible-playbook \
   -i ../../hosts \
+  -e 'use_s3_build_cache=yes' \
   deploy_play.yml \
   "$@"
