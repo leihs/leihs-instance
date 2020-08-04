@@ -1,8 +1,9 @@
-external_base_url: ${LEIHS_HOSTNAME}
+external_base_url: "https://${LEIHS_HOSTNAME}"
 
 time_zone: Bern
 local_currency_string: CHF
 
+# see <https://guides.rubyonrails.org/action_mailer_basics.html#action-mailer-configuration>
 mail_delivery_method: smtp
 smtp_address: localhost
 smtp_port: 25
