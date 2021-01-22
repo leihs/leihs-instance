@@ -7,7 +7,7 @@ and the [general **leihs** Documentation](https://github.com/leihs/leihs/wiki)_
 
 ## setup & install
 
-1. ["Fork" this repository on github](https://github.com/leihs/leihs-instance/fork) or [use it as a template](https://github.com/leihs/leihs-instance/generate)
+1. [Generate your own inventory repository by using this template](https://github.com/leihs/leihs-instance/generate)
 
 1. prepare a fresh server running [Ubuntu 18.04.2 LTS (Bionic Beaver)](https://wiki.ubuntu.com/BionicBeaver/ReleaseNotes) or [Debian 10 (buster)](https://www.debian.org/releases/buster/), and point a domain name to it. Make sure you can connect as root (or use `sudo` to become root):
 
