@@ -1,6 +1,10 @@
 #!/bin/sh -exu
 
-git submodule update --recursive --init --force --quiet
+# set and prepare the build cache
+LOCAL_CACHE_DIR_RELATIVE="${LOCAL_CACHE_DIR:-"../tmp/build_cache/"}"
+export LOCAL_CACHE_DIR="$(cd -- "$(dirname "${BASH_SOURCE}")" && mkdir -p "$LOCAL_CACHE_DIR_RELATIVE" && cd "$LOCAL_CACHE_DIR_RELATIVE" && pwd -P)"
+source ./scripts/-from-docker /leihs-instance/scripts/prepare-build-cache
+export LOCAL_CACHE_DIR
 
 ./scripts/ansible-from-docker \
   deploy_play.yml \

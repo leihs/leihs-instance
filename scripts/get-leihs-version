@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+# WANT_JSON
+
+require 'json'
+require 'yaml'
+
+begin
+  Dir.chdir(__dir__)
+  fail unless system('../leihs/dev/releasenotes-md-to-yaml.rb') # generate combined YAML file
+  release = YAML.load_file('../leihs/config/releases.yml')['releases'].first
+  puts \
+    "#{release['version_major']}" \
+    + ".#{release['version_minor']}.#{release['version_patch']}" \
+    + (release['version_pre'] ? "-#{release['version_pre']}" : '')
+
+rescue Exception => e
+  puts "Error: leihs version not found! '#{e}'"
+  exit 1
+end

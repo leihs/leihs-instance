@@ -1,0 +1,37 @@
+#!/bin/bash -ue
+
+# usage: LEIHS_VERSION=6.0.0 LOCAL_CACHE_DIR=/var/cache/leihs ./scripts/prepare-build-cache
+
+export LEIHS_VERSION="${LEIHS_VERSION:-"$($(dirname "$BASH_SOURCE")/get-leihs-version)"}"
+export LOCAL_CACHE_DIR="${LOCAL_CACHE_DIR:-"$(dirname "$BASH_SOURCE")/../tmp/build_cache"}"
+ARTEFACTS_TAR_FILE_PATH="${LOCAL_CACHE_DIR}/${LEIHS_VERSION}_build-artefacts.tar.gz"
+
+function download {
+  echo "downloading build artefacts for LEIHS_VERSION='${LEIHS_VERSION}'"
+  if ! curl -Lf -o "$ARTEFACTS_TAR_FILE_PATH" "https://github.com/leihs/leihs/releases/download/${LEIHS_VERSION}/build-artefacts.tar.gz"; then
+    echo "ERROR: Could not download build artefacts for LEIHS_VERSION='${LEIHS_VERSION}'"
+    exit 1
+  fi
+}
+
+function extract {
+  echo "extracting build artefacts for LEIHS_VERSION='${LEIHS_VERSION}' into LOCAL_CACHE_DIR='${LOCAL_CACHE_DIR}'"
+  tar -C "$LOCAL_CACHE_DIR" -xvzf "$ARTEFACTS_TAR_FILE_PATH"
+}
+
+function cleanup {
+  rm -rf "$ARTEFACTS_TAR_FILE_PATH"
+}
+
+mkdir -p "$LOCAL_CACHE_DIR"
+
+if [ ! -f "$ARTEFACTS_TAR_FILE_PATH" ]; then
+  download && extract
+else
+  if ! extract; then
+    echo "WARN: found local archive file, but could not extract it. Removing and retrying…"
+    cleanup && download && extract
+  fi
+fi
+
+echo "OK"

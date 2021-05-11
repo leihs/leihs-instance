@@ -13,5 +13,3 @@ db_backup_on_deploy: No # don't set this to true for first deploy!
 
 # when restoring a DB backup, point this to the backup file:
 # database_dump_restore_file_path: '{{inventory_dir}}/../legacy/tmp/db_production.pgbin'
-
-settings_file_path: '{{inventory_dir}}/settings/${LEIHS_HOSTNAME}.yml'
