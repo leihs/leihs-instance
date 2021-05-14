@@ -78,15 +78,17 @@ secret to the repository in encrypted form (_recommended_).
 
 ## upgrade
 
-1. update `leihs` submodule reference to latest release
+1. update `leihs` submodule reference to latest release:
 
-   - or manually: `./scripts/update_leihs_latest stable`
+   ```shell
+   ./scripts/update_leihs_latest stable
+   ```
 
 1. check the release notes for needed changes to the inventory and/or pull in the updates from the template repo:
 
    ```shell
    curl -L https://github.com/leihs/leihs-instance/archive/master.tar.gz | tar -xzv --strip=1
-   git commit --all -m 'update inventory from upstream'
+   git add -A && git commit -m 'update inventory from upstream'
    ```
 
 1. run the deploy playbook again:
