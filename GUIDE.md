@@ -87,8 +87,8 @@ secret to the repository in encrypted form (_recommended_).
 1. check the release notes for needed changes to the inventory and/or pull in the updates from the template repo:
 
    ```shell
-   curl -L https://github.com/leihs/leihs-instance/archive/master.tar.gz | tar -xzv --strip=1
-   git add -A && git commit -m 'update inventory from upstream'
+   curl -L https://github.com/leihs/leihs-instance/archive/master.tar.gz | tar -xzv --strip=1 | cut -d'/' -f2- | xargs git add
+   git commit -m 'update inventory from upstream' && git show HEAD --stat
    ```
 
 1. run the deploy playbook again:
