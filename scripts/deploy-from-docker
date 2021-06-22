@@ -1,4 +1,4 @@
-#!/bin/sh -exu
+#!/bin/bash -exu
 
 # set and prepare the build cache
 LOCAL_CACHE_DIR_RELATIVE="${LOCAL_CACHE_DIR:-"../tmp/build_cache/"}"

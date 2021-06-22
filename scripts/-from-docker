@@ -1,4 +1,4 @@
-#!/bin/sh -eu
+#!/bin/bash -eu
 
 # build the docker image and tag it with a name
 docker build -t leihs/ansible-controller ./leihs/deploy

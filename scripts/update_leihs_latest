@@ -1,5 +1,5 @@
-#!/bin/sh -exu
-CHANNEL=$1
+#!/bin/bash -exu
+CHANNEL=${1:-stable}
 
 cd leihs
 git fetch

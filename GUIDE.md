@@ -18,14 +18,18 @@ and the [general **leihs** Documentation](https://github.com/leihs/leihs/wiki)_
 
    # test it
    ssh "${LEIHS_HOST_USER}@${LEIHS_HOSTNAME}" -- 'test $(id -u) -eq 0 && echo OK || sudo echo OK'
-
-   # ⚠️⚠️⚠️ NOTE: temporary workaround for a needed package that might be missing: ⚠️⚠️⚠️
-   ssh "${LEIHS_HOST_USER}@${LEIHS_HOSTNAME}" -- 'apt-get update && apt-get install -fy shared-mime-info'
-
    ```
 
-1. set up the _inventory_ on your personal computer (the "control machine").
-   Install either [`Docker`](https://www.docker.com/products/docker-desktop) _or_ [`ansible`](https://docs.ansible.com/ansible/latest/installation_guide/index.html) and [`ruby`](https://www.ruby-lang.org/en/).
+1. prepare the "control machine" (your personal computer):  
+   Install either [`python3-venv`](https://docs.python.org/3.7/library/venv.html) and [`ruby`](https://www.ruby-lang.org/en/) _or_ [`Docker`](https://www.docker.com/products/docker-desktop).  
+   
+   Example for Debian/Ubuntu:
+
+   ```sh
+   apt update && apt install ruby python3-venv
+   ```
+
+1. set up the _inventory_ on the "control machine":
 
    ```sh
    git clone https://github.com/leihs/leihs-instance "${LEIHS_HOSTNAME}_hosting"
@@ -34,15 +38,7 @@ and the [general **leihs** Documentation](https://github.com/leihs/leihs/wiki)_
    sh -c 'git submodule update --init leihs && cd leihs && git submodule update --init --recursive'
    ```
 
-1. Prepare SSL/TLS certificate (mandatory). To use (the free and recommended) LetsEncrypt + Certbot, follow the [official instructions](https://certbot.eff.org) to install, then use the following comand to interactively obtain a certificate for the first time. If that worked, automated renewals should be set up as well.
-
-   ```sh
-   ssh "${LEIHS_HOST_USER}@${LEIHS_HOSTNAME}" -- "sudo apt-get update && sudo apt-get install certbot -y python3-certbot-apache"
-   ssh "${LEIHS_HOST_USER}@${LEIHS_HOSTNAME}" -- \
-     "sudo certbot certonly --apache --force-interactive -d '${LEIHS_HOSTNAME}'"
-   ```
-
-1. configure the _inventory_
+   Configure the _inventory_:
 
    ```sh
    # create hosts file
@@ -54,10 +50,22 @@ and the [general **leihs** Documentation](https://github.com/leihs/leihs/wiki)_
    - edit global config in file `group_vars/leihs_server.yml`
    - edit per-host config in file `host_vars/${LEIHS_HOSTNAME}.yml`.
      - If a custom TLS certificate is used, the `leihs_virtual_hosts` config from `group_vars` needs to be overwritten here.
-   - **commit**: `git add . && git commit -m "inventory config for ${LEIHS_HOSTNAME}"`
+   - **commit**:
+
+       ```sh
+       git add . && git commit -m "inventory config for ${LEIHS_HOSTNAME}"
+       ```
+
+1. Prepare SSL/TLS certificate (mandatory). To use (the free and recommended) LetsEncrypt + Certbot, follow the [official instructions](https://certbot.eff.org) to install, then use the following comand to interactively obtain a certificate for the first time. If that worked, automated renewals should be set up as well.
+
+   ```sh
+   ssh "${LEIHS_HOST_USER}@${LEIHS_HOSTNAME}" -- "sudo apt-get update && sudo apt-get install certbot -y python3-certbot-apache"
+   ssh "${LEIHS_HOST_USER}@${LEIHS_HOSTNAME}" -- \
+     "sudo certbot certonly --apache --force-interactive -d '${LEIHS_HOSTNAME}'"
+   ```
 
 1. Run the deploy. This will take quite some time, up to an hour.
-   Note that (unlike with previous Leihs releases) by default there will be no compilation happening on the control machine, instead "prebuilt artefacts" are download (though some compilation might still happen on the server on the initial deploy and some updates).
+   Note that (unlike with previous Leihs releases) by default there will be no compilation happening on the control machine, instead "prebuilt artefacts" are downloaded (though some compilation might still happen on the server on the initial deploy and some updates).
    See the section ["build cache"](#build-cache) for details and ["build from source"](#build-from-source) if you want to do that instead.
 
    - `./scripts/deploy`
@@ -132,7 +140,7 @@ curl -L "https://github.com/leihs/leihs/releases/download/${LEIHS_VERSION}/build
 
 ## build from source
 
-In case you dont want to use the prebuilt artifacts, you can build everythings yourself from source on the "control machine".
+In case you dont want to use the [prebuilt artifacts](#build-cache), you can build everythings yourself from source on the "control machine".
 You can either setup a build environment manually or use Docker.
 
 The build process depends on several development tools with need to be installed in the right version on the control machine.
