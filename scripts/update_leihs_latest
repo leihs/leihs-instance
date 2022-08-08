@@ -1,5 +1,7 @@
 #!/bin/bash -exu
-CHANNEL=${1:-stable}
+
+RELEASE_NAME=$1
+CHANNEL=${2:-stable}
 
 cd leihs
 git fetch
@@ -9,4 +11,11 @@ git submodule update --recursive --init --force
 
 cd -
 git add leihs
-git commit -m 'leihs: x.y.z' --edit
+
+if [[ -n "${RELEASE_NAME}" ]]; then
+  git commit -m "leihs: ${RELEASE_NAME}"
+else
+  git commit -m "leihs: x.y.z" --edit
+fi
+
+git push
