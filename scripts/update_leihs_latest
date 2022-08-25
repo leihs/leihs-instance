@@ -3,6 +3,8 @@
 RELEASE_NAME=$1
 CHANNEL=${2:-stable}
 
+git pull
+
 cd leihs
 git fetch
 git submodule foreach --recursive 'git reset --hard HEAD'
