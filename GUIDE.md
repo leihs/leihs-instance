@@ -9,7 +9,7 @@ and the [general **leihs** Documentation](https://github.com/leihs/leihs/wiki)_
 
 1. [Generate your own inventory repository by using this template](https://github.com/leihs/leihs-instance/generate)
 
-1. prepare a fresh server running [Ubuntu 18.04.2 LTS (Bionic Beaver)](https://wiki.ubuntu.com/BionicBeaver/ReleaseNotes) or [Debian 10 (buster)](https://www.debian.org/releases/buster/), and point a domain name to it. Make sure you can connect as root (or use `sudo` to become root):
+1. prepare a fresh server running [Ubuntu 20 (Focal Fossa)](https://releases.ubuntu.com/focal/) or [Ubuntu 22 (Jammy Jellyfish)](https://releases.ubuntu.com/jammy/) or [Debian 11 (bullseye)](https://www.debian.org/releases/bullseye/), and point a domain name to it. Make sure you can connect as root (or use `sudo` to become root):
 
    ```sh
    # set connection config (all scripts below expect those exported variables!)
@@ -20,8 +20,8 @@ and the [general **leihs** Documentation](https://github.com/leihs/leihs/wiki)_
    ssh "${LEIHS_HOST_USER}@${LEIHS_HOSTNAME}" -- 'test $(id -u) -eq 0 && echo OK || sudo echo OK'
    ```
 
-1. prepare the "control machine" (your personal computer):  
-   Install either [`python3-venv`](https://docs.python.org/3.7/library/venv.html) and [`ruby`](https://www.ruby-lang.org/en/) _or_ [`Docker`](https://www.docker.com/products/docker-desktop).  
+1. prepare the "control machine" (your personal computer):
+    Install [`python3-venv`](https://docs.python.org/3/library/venv.html#module-venv) and [`ruby`](https://www.ruby-lang.org/en/) _or_ [`Docker`](https://www.docker.com/products/docker-desktop).  
    
    Example for Debian/Ubuntu:
 
@@ -125,13 +125,13 @@ The default deploy scripts automatically download and extract this to a local di
 and are configured to use this directory as a cache.
 If needed, this can also be done manually, or in a shell script as shown below. Make sure to replace the version number in the examples for the one you plan to use (the latest stable release for production or the latest release candidate for testing).
 
-1. go to a release page, e.g. [**_`6.0.0`_**](https://github.com/leihs/leihs/releases/tag/6.0.0)
+1. go to a release page, e.g. [**_`7.1.0`_**](https://github.com/leihs/leihs/releases/tag/7.1.0)
 1. download the archive `build-artefacts.tar.gz` found under "Assets", on the bottom of the page.
-1. extract the archive to a directory, e.g. to `~/Downloads/leihs-`**_`6.0.0`_**
+1. extract the archive to a directory, e.g. to `~/Downloads/leihs-`**_`7.1.0`_**
 1. in the shell, set the `LOCAL_CACHE_DIR` environment variable to the directory where the archive was extracted, before running the deploy.
 
 ```sh
-LEIHS_VERSION=6.0.0
+LEIHS_VERSION=7.1.0
 export LOCAL_CACHE_DIR="/tmp/leihs-${LEIHS_VERSION}"
 mkdir -p "$LOCAL_CACHE_DIR"
 curl -L "https://github.com/leihs/leihs/releases/download/${LEIHS_VERSION}/build-artefacts.tar.gz" \
@@ -150,4 +150,4 @@ _(Note: Docker is only used on your local machine, not on the web server.)_
 
 - with Docker: Install Docker, for example [Docker Desktop](https://www.docker.com/products/docker-desktop)
 
-- manually: Install the following software packages: `git`, `python 2`, `node.js LTS`, `Java 8`, `Ruby 2.3`, .
+- manually: Install the following software packages: `git`, `python`, `node.js LTS`, `Java`, `Ruby`, .
