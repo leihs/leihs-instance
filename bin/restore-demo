@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+#set -x
+
+INVENTORY_DIR="$(cd -- "$(dirname "${BASH_SOURCE}")" ; cd .. > /dev/null 2>&1 && pwd -P)"
+LEIHS_DIR=$INVENTORY_DIR/leihs
+DEPLOY_DIR=$INVENTORY_DIR/leihs/deploy
+
+${DEPLOY_DIR}/bin/ansible-playbook \
+  ${DEPLOY_DIR}/db-restore_play.yml \
+  -i ${INVENTORY_DIR}/hosts.yml "$@"
+
+# vi: ft=sh

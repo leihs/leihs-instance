@@ -1,0 +1,9 @@
+# some zhdk specific settings
+
+# zhdk convention for ssl keys and certs via zhdk ha proxy
+leihs_virtual_hosts:
+- hostname: '{{leihs_external_hostname}}'
+  ip: '*'
+  ssl_certificate_file: '/etc/ssl/localcerts/{{ansible_host}}.crt'
+  ssl_certificate_key_file: '/etc/ssl/localcerts/{{ansible_host}}.key'
+  force_redirect_to_https: yes

@@ -1,0 +1,45 @@
+jobs:
+
+  deploy-demo:
+
+    name: Deploy and reset data on https://demo.leihs.zhdk.ch/
+
+    run_when:
+      "deploy and reset every night":
+        type: cron
+        value: "00 21 * * *"
+        branch_include_match: ^master$
+        rerun: true
+
+    context:
+
+      task_defaults:
+
+        git_options:
+          submodules:
+            include_match: ^.*$
+
+        traits:
+          asdf: true
+          zhdk-leihs-deploy: true
+
+      tasks:
+        deploy:
+          scripts:
+
+            deploy:
+              timeout: 1 Hour
+              body: |
+                #/usr/bin/env bash
+                set -euo pipefail
+                ./bin/deploy-leihs
+
+            restore_demo:
+              timeout: 20 Minutes
+              start_when:
+                deployed:
+                  script_key: deploy
+              body: |
+                #/usr/bin/env bash
+                set -euo pipefail
+                ./bin/restore-demo
