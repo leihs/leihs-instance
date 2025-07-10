@@ -1,0 +1,11 @@
+[Unit]
+Description=Run keyexchange script
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/keyexchange.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

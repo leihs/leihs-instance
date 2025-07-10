@@ -1,0 +1,29 @@
+leihs_external_hostname: "localhost"
+ansible_host: "localhost"
+ansible_connection: "local"
+ansible_user: "{{ lookup('env', 'USER') }}"
+
+# Database config for local podman/docker
+database:
+  host: "localhost"
+  port: 5432
+  username: "leihs"
+  password: "leihs_password"
+  database: "leihs"
+
+# Ports for microservices - adjust as needed
+LEIHS_LEGACY_HTTP_PORT: "3210"
+LEIHS_ADMIN_HTTP_PORT: "3220"
+LEIHS_PROCURE_HTTP_PORT: "3230"
+LEIHS_PROCURE_CLIENT_HTTP_PORT: "3231"
+LEIHS_MY_HTTP_PORT: "3240"
+LEIHS_BORROW_HTTP_PORT: "3250"
+
+# Reverse proxy settings - no HTTPS (localhost)
+leihs_virtual_hosts:
+  - hostname: "localhost"
+    ip: "127.0.0.1"
+    logfile_infix: "localhost"
+    force_redirect_to_https: no
+
+leihs_send_mails: No

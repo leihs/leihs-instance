@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+  leihs-control:
+    image: leihs-base:latest
+    build:
+      context: .
+      dockerfile: Containerfile
+    container_name: leihs-control
+    hostname: leihs-control
+    privileged: true
+    mem_limit: 4g
+    volumes:
+      - sshkey-share:/shared-keys
+
+    networks:
+      - leihs-net
+
+  leihs-target:
+    image: leihs-base:latest
+    container_name: leihs-target
+    hostname: leihs-target
+    privileged: true
+    mem_limit: 4g
+    volumes:
+      - sshkey-share:/shared-keys
+
+    networks:
+      - leihs-net
+    ports:
+      - "8080:80"
+
+volumes:
+  sshkey-share:
+
+networks:
+  leihs-net:
+    driver: bridge
