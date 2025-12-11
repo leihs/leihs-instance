@@ -32,7 +32,7 @@ jobs:
               body: |
                 #/usr/bin/env bash
                 set -euo pipefail
-                ./bin/deploy-leihs
+                ./bin/deploy
 
             restore_demo:
               timeout: 20 Minutes
@@ -42,4 +42,4 @@ jobs:
               body: |
                 #/usr/bin/env bash
                 set -euo pipefail
-                ./bin/restore-demo
+                ./bin/dump-restore
