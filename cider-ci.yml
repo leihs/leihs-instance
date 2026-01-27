@@ -42,4 +42,4 @@ jobs:
               body: |
                 #/usr/bin/env bash
                 set -euo pipefail
-                ./bin/restore-demo
+                ./bin/demo-dump-restore
